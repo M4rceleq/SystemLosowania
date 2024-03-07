@@ -2,11 +2,40 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SystemLosowania.Views.AllClassesPage"
+             xmlns:Models="clr-namespace:SystemLosowania.Models"
              Title="AllClassesPage">
+    <ContentPage.BindingContext>
+        <Models:AllClasses />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <StyleSheet Source="/Resources/Styles/AllClassesPage.css" />
+    </ContentPage.Resources>
+
+    <Shell.TitleView>
+        <Grid>
+            <Label Text="SystemLosowania | Wybór klasy" x:Name="Headbar"/>
+        </Grid>
+    </Shell.TitleView>
+
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <HorizontalStackLayout x:Name="AddClassLayout">
+            <Label Text="Dodaj nową klasę: "/>
+            <Entry x:Name="AddClassEntry" Placeholder="Nazwa klasy" />
+            <Button x:Name="AddClassButton" Text="Dodaj klasę" Clicked="AddClass_Clicked" />
+        </HorizontalStackLayout>
+        
+        <CollectionView 
+            ItemsSource="{Binding ClassesCollection}" 
+            ItemsLayout="VerticalList"
+            SelectionMode="Single" 
+            SelectionChanged="OnCollectionViewSelectionChanged"
+        >
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Label StyleClass="Item" Text="{Binding .}" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>

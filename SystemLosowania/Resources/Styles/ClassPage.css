@@ -1,0 +1,42 @@
+^contentpage {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    opacity: 0.3;
+}
+
+#Headbar {
+    font-size: 35;
+    text-align: center;
+}
+
+#Forms {
+    margin-top: 10;
+    margin-left: 10;
+}
+
+.horizontal > button {
+    width: 150;
+    color: white;
+    padding: 3;
+    border-radius: 20;
+    font-size: 15;
+    margin-left: 10;
+}
+
+.horizontal > label {
+    margin-top: 5;
+    font-size: 20;
+    margin-right: 5;
+}
+
+#LuckyForm {
+    margin-top: 15;
+}
+
+.Item {
+    font-size: 40;
+}
+
+#collection {
+    margin-left: 10;
+}

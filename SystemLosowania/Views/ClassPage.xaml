@@ -2,11 +2,58 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SystemLosowania.Views.ClassPage"
-             Title="ClassPage">
+             xmlns:views="clr-namespace:SystemLosowania.Views"
+             xmlns:Models="clr-namespace:SystemLosowania.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="ClassPage"
+             x:Name="ContentPage">
+    <ContentPage.BindingContext>
+        <Models:Class />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <StyleSheet Source="/Resources/Styles/ClassPage.css" />
+    </ContentPage.Resources>
+    
+    <Shell.TitleView>
+        <Grid>
+            <Label x:Name="Headbar" />
+        </Grid>
+    </Shell.TitleView>
+
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <VerticalStackLayout x:Name="Forms">
+            <HorizontalStackLayout StyleClass="horizontal">
+                <Label Text="Dodaj nowego ucznia: "/>
+                <Entry x:Name="StudentIdEntry" Placeholder="Numerek ucznia" MaxLength="2" />
+                <Entry x:Name="StudentNameEntry" Placeholder="Nazwisko ucznia" />
+                <Button Text="Dodaj" Clicked="AddStudent_Clicked" />
+                <Button Text="Wylosuj ucznia" Clicked="RollStudent" />
+                <Button Text="Usuń klasę" Clicked="RemoveClass" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout x:Name="LuckyForm" StyleClass="horizontal">
+                <Label Text="Szczęśliwy numerek: " />
+                <Label x:Name="LuckyNumberLabel" Text=" ?" />
+                <Button Text="Wylosuj numerek" Clicked="RollLuckyNumber" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+        <CollectionView 
+            x:Name="collection"
+            ItemsSource="{Binding StudentsCollection}" 
+            ItemsLayout="VerticalList"
+            SelectionMode="Single" 
+            SelectionChanged="OnCollectionViewSelectionChanged"
+        >
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <HorizontalStackLayout StyleClass="Item">
+                        <Label Text="{Binding Id, StringFormat='{0}.'}" />
+                        <Label Text="{Binding Name, StringFormat=' {0}'}" />
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>
